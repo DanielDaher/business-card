@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { registerNewCard } from '../helpers/api';
 import '../Styles/Form.css';
 
 
@@ -9,9 +10,16 @@ function Form() {
     githubURL: ''
   });
 
-  const genereateQRCodeImage = (e) => {
+  const genereateQRCodeImage = async (e) => {
     e.preventDefault();
-    alert('função disparada')
+    try {
+      const cardId = await registerNewCard(userInfo);
+      console.log(typeof cardId);
+      alert(cardId);
+    } catch (error) {
+      alert('something went wrong');
+      
+    }
   };
 
   const handleInputChange = (info, event) => setUserInfo({ ...userInfo, [info]: event.target.value });
