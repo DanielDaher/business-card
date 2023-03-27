@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { registerNewCard } from '../helpers/api';
+import { alertEmptyFields } from '../helpers/utils';
 import '../Styles/Form.css';
 
 
@@ -14,7 +15,7 @@ function Form({ setCardId }) {
     e.preventDefault();
     try {
       const cardId = await registerNewCard(userInfo);
-      if (cardId === 'All fields must be filled') return alert(cardId);
+      if (cardId === 'All fields must be filled') return alertEmptyFields();
       setCardId(cardId);
     } catch (error) {
       alert('something went wrong');
