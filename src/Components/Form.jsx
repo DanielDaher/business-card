@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { registerNewCard } from '../helpers/api';
 import { alertEmptyFields } from '../helpers/utils';
 import '../Styles/Form.css';
+import Loading from './Loading';
 
 
 function Form({ setCardId }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: '',
     linkedinURL: '',
@@ -13,12 +15,15 @@ function Form({ setCardId }) {
 
   const genereateQRCodeImage = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const cardId = await registerNewCard(userInfo);
       if (cardId === 'All fields must be filled') return alertEmptyFields();
+      setIsLoading(false);
       setCardId(cardId);
     } catch (error) {
       alert('something went wrong');
+      setIsLoading(false);
     }
   };
 
@@ -28,7 +33,7 @@ function Form({ setCardId }) {
     <div className='card'>
       <h3>QR CODE IMAGE GENERATOR</h3>
       <form onSubmit={(e) => genereateQRCodeImage(e)}>
-        {Object.keys(userInfo).map((info) => {
+        {!isLoading && Object.keys(userInfo).map((info) => {
           const placeholderValue = { name: 'Name', linkedinURL: 'Linkedin URL', githubURL: 'Github URL' };
           const title = 'Type your name';
           return (
@@ -42,6 +47,7 @@ function Form({ setCardId }) {
             />
         )
         })}
+        {isLoading && <Loading />}
         <button title="Make a new QR CODE with your informations">Generate Image</button>
       </form>
     </div>
