@@ -1,7 +1,10 @@
+import { isValidRequest } from "./utils";
 // require('dotenv').config();
 const API_BASE_URL = /* `${process.env.REACT_APP_API_URL}` ||  */'http://localhost:3000';
 
 export const registerNewCard = async (userInfo) => {
+  const validRequest = isValidRequest(userInfo);
+  if (!validRequest) return 'All fields must be filled';
   try {
     const url = `${API_BASE_URL}/cards`;
     

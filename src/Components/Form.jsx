@@ -3,7 +3,7 @@ import { registerNewCard } from '../helpers/api';
 import '../Styles/Form.css';
 
 
-function Form() {
+function Form({ setCardId }) {
   const [userInfo, setUserInfo] = useState({
     name: '',
     linkedinURL: '',
@@ -14,11 +14,10 @@ function Form() {
     e.preventDefault();
     try {
       const cardId = await registerNewCard(userInfo);
-      console.log(typeof cardId);
-      alert(cardId);
+      if (cardId === 'All fields must be filled') return alert(cardId);
+      setCardId(cardId);
     } catch (error) {
       alert('something went wrong');
-      
     }
   };
 
