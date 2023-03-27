@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { registerNewCard } from '../helpers/api';
 import { alertEmptyFields } from '../helpers/utils';
-import '../Styles/Form.css';
+import { Navigate } from 'react-router-dom';
 import Loading from './Loading';
+import '../Styles/Form.css';
 
 
 function Form({ setCardId }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: '',
     linkedinURL: '',
@@ -18,9 +20,10 @@ function Form({ setCardId }) {
     setIsLoading(true);
     try {
       const cardId = await registerNewCard(userInfo);
-      if (cardId === 'All fields must be filled') return alertEmptyFields();
       setIsLoading(false);
+      if (cardId === 'All fields must be filled') return alertEmptyFields();
       setCardId(cardId);
+      setRedirect(true);
     } catch (error) {
       alert('something went wrong');
       setIsLoading(false);
@@ -28,6 +31,8 @@ function Form({ setCardId }) {
   };
 
   const handleInputChange = (info, event) => setUserInfo({ ...userInfo, [info]: event.target.value });
+
+  if (redirect) return <Navigate to="/qr-code" />
 
   return (
     <div className='card'>
