@@ -6,6 +6,7 @@ export const registerNewCard = async (userInfo) => {
   const validRequest = isValidRequest(userInfo);
   if (!validRequest) return 'All fields must be filled';
   try {
+    console.log(API_BASE_URL)
     const url = `${API_BASE_URL}/cards`;
     
     const registerCard = await fetch(url, {
