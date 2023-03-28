@@ -42,3 +42,14 @@ export const getCard = async (id) => {
     console.error(error);
   }
 };
+
+export const getGithubUserInfo = async (username) => {
+  try {  
+    const data = await fetch(`https://api.github.com/users/${username}`);
+    const userInfo = await data.json();
+    return userInfo;
+  } catch (error) {
+    console.error('error: ', error);
+    return null
+  }
+};
