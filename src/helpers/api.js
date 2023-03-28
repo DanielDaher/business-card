@@ -1,7 +1,5 @@
 import { isValidRequest } from "./utils";
-// require('dotenv').config();
-// import { config } from 'dotenv';
-const API_BASE_URL = /* 'https://api-business-card-danieldaher.vercel.app' */`${import.meta.env.VITE_API_URL}` /* || 'http://localhost:3000' */;
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}` /* || 'http://localhost:3000' */;
 
 export const registerNewCard = async (userInfo) => {
   const validRequest = isValidRequest(userInfo);
