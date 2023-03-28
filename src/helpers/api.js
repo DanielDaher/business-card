@@ -1,6 +1,6 @@
 import { isValidRequest } from "./utils";
 /// require('dotenv').config();
-const API_BASE_URL = `${process.env.REACT_APP_API_URL}` || 'http://localhost:3000';
+const API_BASE_URL = `${process.env.REACT_APP_API_URL}` /* || 'http://localhost:3000' */;
 
 export const registerNewCard = async (userInfo) => {
   const validRequest = isValidRequest(userInfo);
@@ -26,8 +26,10 @@ export const registerNewCard = async (userInfo) => {
 }; 
 
 export const getCard = async (id) => {
+  console.log(id)
   try {
     const url = `${API_BASE_URL}/cards/${id}`;
+    console.log(API_BASE_URL)
     
     const card = await fetch(url, {
       method: "GET",

@@ -45,6 +45,7 @@ function VirtualCard() {
     updated_at: "2023-03-26T17:41:33Z"
   });
   const { id } = useParams();
+  console.log(id)
 
   useEffect(() => {
     const getCardFromBackend = async () => {
