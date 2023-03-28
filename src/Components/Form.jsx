@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { registerNewCard } from '../helpers/api';
-import { alertEmptyFields } from '../helpers/utils';
+import { alertEmptyFields, alertError } from '../helpers/utils';
 import { Navigate } from 'react-router-dom';
 import Loading from './Loading';
 import '../Styles/Form.css';
@@ -25,7 +25,7 @@ function Form({ setCardId }) {
       setCardId(cardId);
       setRedirect(true);
     } catch (error) {
-      alert('something went wrong');
+      alertError();
       setIsLoading(false);
     }
   };
