@@ -10,7 +10,7 @@ function QrCode({ cardId }) {
   const [redirect, setRedirect] = useState(false);
 
   const downloadQRCodeImage = () => {
-    const url = `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${window.location.origin}/${cardId}&choe=UTF-8`
+    const url = `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${window.location.origin}/card${cardId}&choe=UTF-8`
     try {
       saveAs(url, 'business-card.png')
     } catch (error) {

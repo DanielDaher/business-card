@@ -13,8 +13,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={ <Form setCardId={ setCardId } /> } />
-          <Route exact path="/qr-code" element={ <QrCode cardId={cardId} /> } />
-          <Route path="/:id" element={ <VirtualCard />} />
+          <Route path="/qr-code" element={ <QrCode cardId={cardId} /> } />
+          <Route path="/card/:id" element={ <VirtualCard />} />
         </Routes>
       </BrowserRouter>
     </div>
