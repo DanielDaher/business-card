@@ -52,16 +52,16 @@ function VirtualCard() {
       const currentCard = await getCard(id);
       setCard(currentCard);
     }
-    if (card.name === '') {
+    if (card?.name === '') {
       getCardFromBackend();
     }
-    // if (card.githubURL !== '') {
+    // if (card?.githubURL !== '') {
     //   getGithubLogin();
     // }
   }, [id, card]);
 
   const getGithubLogin = async () => {
-    const [url, userName] = card.githubURL.split('.com/');
+    const [url, userName] = card?.githubURL.split('.com/');
     const userInfo = await getGithubUserInfo(userName);
     console.log(userInfo)
     setGithubInfo(userInfo);
@@ -102,11 +102,11 @@ function VirtualCard() {
     )
   };
 
-  if (!card.name.length) return <Loading />
+  if (!card?.name.length) return <Loading />
 
   return (
     <div className='card'>
-      <h4>{`Hello, my name is ${card.name}`}</h4>
+      <h4>{`Hello, my name is ${card?.name}`}</h4>
       < ShowGithubInfo />
       < ShowLinkButtons />
     </div>
