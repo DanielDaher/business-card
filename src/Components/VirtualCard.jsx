@@ -16,10 +16,8 @@ function VirtualCard() {
   })
   const [githubInfo, setGithubInfo] = useState('');
   const { id } = useParams();
-  console.log(id)
 
   useEffect(() => {
-    console.log('useEffect')
     const getCardFromBackend = async () => {
       const currentCard = await getCard(id);
       setCard(currentCard);
@@ -35,7 +33,6 @@ function VirtualCard() {
   const getGithubLogin = async () => {
     const [url, userName] = card?.githubURL.split('.com/');
     const userInfo = await getGithubUserInfo(userName);
-    console.log(userInfo)
     setGithubInfo(userInfo);
   }
 

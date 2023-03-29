@@ -3,7 +3,6 @@ const API_BASE_URL = `${import.meta.env.VITE_API_URL}` /* || 'http://localhost:3
 
 export const registerNewCard = async (userInfo) => {
   try {
-    console.log(API_BASE_URL)
     const url = `${API_BASE_URL}/cards`;
     
     const registerCard = await fetch(url, {
@@ -24,10 +23,8 @@ export const registerNewCard = async (userInfo) => {
 }; 
 
 export const getCard = async (id) => {
-  console.log(id)
   try {
     const url = `${API_BASE_URL}/cards/${id}`;
-    console.log(API_BASE_URL)
     
     const card = await fetch(url, {
       method: "GET",
