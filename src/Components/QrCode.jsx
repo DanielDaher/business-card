@@ -28,6 +28,7 @@ function QrCode({ cardId }) {
         <div>
           <img 
             src={`https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=${window.location.origin}/card/${cardId}&choe=UTF-8`}
+            onClick={() => window.open(`${window.location.origin}/card/${cardId}`)}
             onLoad={() => setIsLoading(false)}
             alt="business card qr code"
           />

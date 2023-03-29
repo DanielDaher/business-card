@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCard, getGithubUserInfo } from '../helpers/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faSquareTwitter, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
+import '../Styles/VirtualCard.css';
 
 function VirtualCard() {
   const [card, setCard] = useState({
@@ -10,40 +14,7 @@ function VirtualCard() {
     linkedinURL: '',
     githubURL: ''
   })
-  const [githubInfo, setGithubInfo] = useState({
-    login: "DanielDaher",
-    id: 80550993,
-    node_id: "MDQ6VXNlcjgwNTUwOTkz",
-    avatar_url: "https://avatars.githubusercontent.com/u/80550993?v=4",
-    gravatar_id: "",
-    url: "https://api.github.com/users/DanielDaher",
-    html_url: "https://github.com/DanielDaher",
-    followers_url: "https://api.github.com/users/DanielDaher/followers",
-    following_url: "https://api.github.com/users/DanielDaher/following%7B/other_user%7D",
-    gists_url: "https://api.github.com/users/DanielDaher/gists%7B/gist_id%7D",
-    starred_url: "https://api.github.com/users/DanielDaher/starred%7B/owner%7D%7B/repo%7D",
-    subscriptions_url: "https://api.github.com/users/DanielDaher/subscriptions",
-    organizations_url: "https://api.github.com/users/DanielDaher/orgs",
-    repos_url: "https://api.github.com/users/DanielDaher/repos",
-    events_url: "https://api.github.com/users/DanielDaher/events%7B/privacy%7D",
-    received_events_url: "https://api.github.com/users/DanielDaher/received_events",
-    type: "User",
-    site_admin: false,
-    name: "Daniel Daher",
-    company: null,
-    blog: "https://www.linkedin.com/in/daniel-daher-dev/",
-    location: "Belo Horizonte - MG - Brasil",
-    email: null,
-    hireable: null,
-    bio: "Desenvolvedor Full Stack JR com um ano de experiência.\r\nFormado pela Trybe.\r\nDisponível para trabalho",
-    twitter_username: "daherfd",
-    public_repos: 16,
-    public_gists: 0,
-    followers: 68,
-    following: 70,
-    created_at: "2021-03-12T22:07:48Z",
-    updated_at: "2023-03-26T17:41:33Z"
-  });
+  const [githubInfo, setGithubInfo] = useState('');
   const { id } = useParams();
   console.log(id)
 
@@ -56,9 +27,9 @@ function VirtualCard() {
     if (card?.name === '') {
       getCardFromBackend();
     }
-    // if (card?.githubURL !== '') {
-    //   getGithubLogin();
-    // }
+    if (card?.githubURL !== '') {
+      getGithubLogin();
+    }
   }, [id, card]);
 
   const getGithubLogin = async () => {
@@ -69,20 +40,14 @@ function VirtualCard() {
   }
 
   const ShowGithubInfo = () => {
-    const { message, avatar_url, bio, location, twitter_username } = githubInfo
-    const error = message;
+    const { message: githubError, avatar_url, bio, location } = githubInfo;
     return (
       <>
-        {!error &&
+        {!githubError &&
           (<div className='profile-card-github'>
-            {avatar_url && <img src={avatar_url} alt="profile picture" width={'210px'} />}
+            {avatar_url && <img src={avatar_url} alt="profile picture" width={'190px'} />}
+            {location && <p><FontAwesomeIcon icon={faLocationDot} /> {location}</p>}
             {bio && <p>{bio}</p>}
-            {location && <p>{`Location: ${location}`}</p>}
-            {twitter_username &&
-              (<Link to={`https://twitter.com/${twitter_username}`} target="_blank">
-                <button>Twitter</button>
-              </Link>)
-            }
           </div>)
         }
       </>
@@ -90,16 +55,36 @@ function VirtualCard() {
   };
 
   const ShowLinkButtons = () => {
+    const { message: githubError, twitter_username, email } = githubInfo;
+
     const sitesNames = Object.keys(card)
       .filter(key => key.includes('URL'))
       .map(key => key.replace('URL', ''));
 
     return (
-      sitesNames.map((site) => (
-        <Link to={card[`${site}URL`]} target="_blank">
-          <button>{site}</button>
-        </Link>
-      ))
+      <div className='profile-card-buttons'>
+        {sitesNames.map((site) => (
+          <Link to={card[`${site}URL`]} target="_blank" key={site}>
+            <FontAwesomeIcon style={{ 'color': 'black' }} size='3x' icon={site === 'linkedin' ? faLinkedin : faGithub} />
+          </Link>
+        ))}
+        {!githubError &&
+          (
+            <>
+              {twitter_username &&
+                <Link to={`https://twitter.com/${twitter_username}`} target="_blank">
+                  <FontAwesomeIcon style={{ 'color': 'black' }} size='3x' icon={faSquareTwitter} />
+                </Link>
+              }
+              {email &&
+                <Link to={`mailto:${email}`} target="_blank">
+                  <FontAwesomeIcon style={{ 'color': 'black' }} size='3x' icon={faEnvelope} />
+                </Link>
+              }
+            </>
+          )
+        }
+      </div>
     )
   };
 
@@ -107,8 +92,12 @@ function VirtualCard() {
 
   return (
     <div className='card'>
-      <h4>{`Hello, my name is ${card?.name}`}</h4>
+      <div className='profile-card-title'>
+        <h4>Hello, my name is</h4>
+        <h3>{card?.name}</h3>
+      </div>
       < ShowGithubInfo />
+      <hr />
       < ShowLinkButtons />
     </div>
   )
