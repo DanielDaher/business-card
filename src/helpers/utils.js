@@ -17,3 +17,13 @@ export const alertEmptyFields = () => {
     background: '#e3e3e3'
   })
 }
+
+export const alertError = () => {
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Something went wrong',
+    confirmButtonColor: '#000',
+    background: '#e3e3e3'
+  })
+}
