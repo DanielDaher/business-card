@@ -64,7 +64,7 @@ function VirtualCard() {
     return (
       <div className='profile-card-buttons'>
         {sitesNames.map((site) => (
-          <Link to={card[`${site}URL`]} target="_blank" key={site}>
+          <Link to={card[`${site}URL`]} target="_blank" key={site} title={`${site} profile`}>
             <FontAwesomeIcon style={{ 'color': 'black' }} size='3x' icon={site === 'linkedin' ? faLinkedin : faGithub} />
           </Link>
         ))}
@@ -72,12 +72,12 @@ function VirtualCard() {
           (
             <>
               {twitter_username &&
-                <Link to={`https://twitter.com/${twitter_username}`} target="_blank">
+                <Link to={`https://twitter.com/${twitter_username}`} target="_blank" title={`twitter profile`}>
                   <FontAwesomeIcon style={{ 'color': 'black' }} size='3x' icon={faSquareTwitter} />
                 </Link>
               }
               {email &&
-                <Link to={`mailto:${email}`} target="_blank">
+                <Link to={`mailto:${email}`} target="_blank" title={`email profile`}>
                   <FontAwesomeIcon style={{ 'color': 'black' }} size='3x' icon={faEnvelope} />
                 </Link>
               }
