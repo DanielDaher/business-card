@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { registerNewCard } from '../helpers/api';
-import { alertEmptyFields, alertError } from '../helpers/utils';
+import { alertEmptyFields, alertError, isValidRequest } from '../helpers/utils';
 import { Navigate } from 'react-router-dom';
 import Loading from './Loading';
 import '../Styles/Form.css';
@@ -17,11 +17,14 @@ function Form({ setCardId }) {
 
   const genereateQRCodeImage = async (e) => {
     e.preventDefault();
+    
+    const validRequest = isValidRequest(userInfo);
+    if (!validRequest) return alertEmptyFields();
+
     setIsLoading(true);
     try {
       const cardId = await registerNewCard(userInfo);
       setIsLoading(false);
-      if (cardId === 'All fields must be filled') return alertEmptyFields();
       setCardId(cardId);
       setRedirect(true);
     } catch (error) {
