@@ -14,11 +14,19 @@ describe('something truthy and falsy', () => {
 });
 
 describe('App', () => {
-  it('renders headline', () => {
+  it('Route / should show Form element', () => {
     render(<App/>);
 
     screen.debug();
+    const inputName = screen.getByPlaceholderText('Name');
+    const inputLinkedin = screen.getByPlaceholderText('Linkedin URL');
+    const inputGithub = screen.getByPlaceholderText('Github URL');
+    const button = screen.getByTitle('Make a new QR CODE with your informations');
 
-    // check if App components renders headline
+    expect(inputName).toBeInTheDocument();
+    expect(inputLinkedin).toBeInTheDocument();
+    expect(inputGithub).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
+
   });
 });
