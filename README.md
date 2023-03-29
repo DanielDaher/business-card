@@ -12,7 +12,7 @@ O objetivo do projeto é gerar um QR Code que redirecione para uma página com a
 
 A aplicação está em inglês, mas basta pedir para que o navegador traduza que continuará funcionando perfeitamente.
 
-A primeira tela é um formulário que pede nome, linkedin e github de uma pessoa. Uma vez que os campos estejam preenchidos, é possível gerar um QR Code que redireciona para um cartão virtual daquela pessoa Ao mesmo tempo, este cadastro acessa a [API-business-card](https://github.com/DanielDaher/API-business-card) e registra as informações em um banco de dados. 
+A primeira tela é um formulário que pede nome, linkedin e github de uma pessoa. Uma vez que os campos estejam preenchidos, é possível gerar um QR Code que redireciona para um cartão virtual daquela pessoa. Ao mesmo tempo, este cadastro acessa a [API-business-card](https://github.com/DanielDaher/API-business-card) e registra as informações em um banco de dados. 
 
 É possível fazer download do QR Code, mas se preferir, basta clicar no mesmo que o site te redireciona para o cartão com as informações inseridas.
 
