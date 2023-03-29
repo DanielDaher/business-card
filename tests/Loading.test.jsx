@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Loading from '../src/Components/Loading';
 
-describe('App', () => {
+describe('Loading', () => {
   it('show 12 blades loading', () => {
     render(<Loading/>);
 
@@ -13,7 +13,7 @@ describe('App', () => {
 
     expect(divFather).toHaveClass('spinner');
     expect(divFather).toHaveClass('center');
-    
+
     expect(blades).toHaveLength(12);
     expect(firstBlade).toHaveClass('spinner-blade');
   });
